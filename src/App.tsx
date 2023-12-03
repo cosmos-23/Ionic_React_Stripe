@@ -1,6 +1,8 @@
 import { Redirect, Route } from 'react-router-dom';
 import { IonApp, IonRouterOutlet, setupIonicReact } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
+import { Capacitor } from '@capacitor/core';
+import { Stripe } from '@capacitor-community/stripe';
 import Home from './pages/Home';
 
 /* Core CSS required for Ionic components to work properly */
@@ -23,6 +25,12 @@ import '@ionic/react/css/display.css';
 import './theme/variables.css';
 
 setupIonicReact();
+
+if (Capacitor.isPluginAvailable("Stripe")) {
+  Stripe.initialize({
+    publishableKey: process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY + ''
+  })
+}
 
 const App: React.FC = () => (
   <IonApp>
